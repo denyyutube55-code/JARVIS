@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#050810">
 <title>J.A.R.V.I.S. — Stark Industries</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,7 @@
   --bg:#050810; --panel:rgba(12,18,32,.82); --panel2:rgba(17,26,43,.9);
   --border:#1a2540; --border-glow:rgba(34,211,238,.35);
   --cyan:#22d3ee; --cyan-dim:rgba(34,211,238,.55);
-  --amber:#fbbf24; --red:#f87171; --green:#34d399;
+  --amber:#fbbf24; --red:#f87171; --green:#34d399; --purple:#a78bfa;
   --text:#cfe6f5; --muted:#5b7a99;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   --sans:'Inter',-apple-system,'Segoe UI',sans-serif;
@@ -28,12 +29,10 @@ body{
     radial-gradient(1200px 700px at 70% -10%, rgba(34,211,238,.07), transparent 60%),
     radial-gradient(900px 600px at 10% 110%, rgba(251,191,36,.05), transparent 60%);
 }
-/* scanlines */
 body::after{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:60;
   background:repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px);
 }
-/* vignette */
 body::before{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:59;
   background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55));
@@ -46,22 +45,15 @@ body::before{
   gap:26px; padding:24px; transition:opacity .8s ease;
 }
 #boot.off{opacity:0; pointer-events:none}
-#boot .logo{
-  width:120px; height:120px; position:relative;
-  animation:bootPulse 2.2s ease-in-out infinite;
-}
+#boot .logo{width:120px;height:120px;animation:bootPulse 2.2s ease-in-out infinite}
 @keyframes bootPulse{0%,100%{filter:drop-shadow(0 0 18px rgba(34,211,238,.5))}50%{filter:drop-shadow(0 0 40px rgba(34,211,238,.9))}}
-#bootLog{
-  width:min(520px,90vw); height:150px; overflow:hidden;
-  font-size:11px; line-height:1.7; color:var(--cyan-dim);
-  letter-spacing:.05em; text-transform:uppercase;
-}
-#bootLog div{opacity:0; animation:bootLine .3s forwards}
+#bootLog{width:min(520px,90vw);height:150px;overflow:hidden;font-size:11px;line-height:1.7;color:var(--cyan-dim);letter-spacing:.05em;text-transform:uppercase}
+#bootLog div{opacity:0;animation:bootLine .3s forwards}
 @keyframes bootLine{to{opacity:1}}
 #bootStart{
   font-family:var(--mono); font-size:13px; letter-spacing:.3em; text-transform:uppercase;
   color:var(--cyan); background:transparent; border:1px solid var(--border-glow);
-  padding:16px 42px; min-height:44px; cursor:pointer; position:relative;
+  padding:16px 42px; min-height:44px; cursor:pointer;
   clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
   transition:background .2s, color .2s;
 }
@@ -92,22 +84,17 @@ header{
 .head-spacer{flex:1}
 .head-item{font-size:10px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; text-align:right}
 .head-item b{display:block; color:var(--text); font-size:13px; letter-spacing:.08em; font-weight:500}
-.live-badge{
-  display:flex; align-items:center; gap:7px; font-size:10px; letter-spacing:.2em;
-  color:var(--green); text-transform:uppercase;
-}
+.live-badge{display:flex; align-items:center; gap:7px; font-size:10px; letter-spacing:.2em; color:var(--green); text-transform:uppercase}
 .live-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulseDot 1.4s infinite}
 .icon-btn{
   background:transparent; border:1px solid var(--border); color:var(--muted);
   width:44px; height:44px; cursor:pointer; display:grid; place-items:center;
-  transition:color .15s,border-color .15s; font-family:var(--mono);
+  transition:color .15s,border-color .15s;
 }
 .icon-btn:hover,.icon-btn.active{color:var(--cyan); border-color:var(--border-glow)}
 .icon-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-main{
-  display:grid; grid-template-columns:280px 1fr 380px; gap:10px; min-height:0;
-}
+main{display:grid; grid-template-columns:300px 1fr 400px; gap:10px; min-height:0}
 .panel{
   border:1px solid var(--border); background:var(--panel);
   backdrop-filter:blur(8px); display:flex; flex-direction:column; min-height:0;
@@ -121,7 +108,6 @@ main{
 .panel-title::before{content:''; width:6px; height:6px; background:var(--cyan); box-shadow:0 0 6px var(--cyan)}
 .panel-title .right{margin-left:auto; color:var(--cyan-dim); letter-spacing:.1em}
 
-/* ---- LEFT: SYSTEM ---- */
 #sysBody{padding:12px 14px; display:flex; flex-direction:column; gap:14px; overflow-y:auto}
 .gauge-block{display:flex; flex-direction:column; gap:6px}
 .gauge-head{display:flex; justify-content:space-between; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
@@ -133,9 +119,30 @@ main{
 .bar i{position:absolute; inset:0; right:auto; background:var(--cyan); box-shadow:0 0 8px var(--cyan-dim); transition:width .6s ease}
 .bar-row b{width:44px; text-align:right; color:var(--text); font-weight:500; font-size:10px}
 #diagLog{font-size:9.5px; line-height:1.8; color:var(--muted); letter-spacing:.05em; text-transform:uppercase}
-#diagLog .ok{color:var(--green)} #diagLog .warn{color:var(--amber)}
+#diagLog .ok{color:var(--green)} #diagLog .warn{color:var(--amber)} #diagLog .err{color:var(--red)}
 
-/* ---- CENTER: REACTOR ---- */
+/* ---- DEVICE HUB ---- */
+#deviceGrid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:8px;
+}
+.dev-btn{
+  background:rgba(6,12,24,.6); border:1px solid var(--border); color:var(--muted);
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase;
+  padding:10px 6px; min-height:44px; cursor:pointer; display:flex;
+  flex-direction:column; align-items:center; gap:5px;
+  transition:all .2s; position:relative;
+}
+.dev-btn .ic{font-size:16px; line-height:1; filter:grayscale(.6); transition:filter .2s}
+.dev-btn:hover{border-color:var(--border-glow); color:var(--cyan-dim)}
+.dev-btn.on{color:var(--cyan); border-color:var(--cyan); background:rgba(34,211,238,.08); box-shadow:inset 0 0 12px rgba(34,211,238,.15)}
+.dev-btn.on .ic{filter:none}
+.dev-btn.on::after{
+  content:''; position:absolute; top:5px; right:5px; width:5px; height:5px;
+  border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green);
+}
+.dev-btn.denied{color:var(--red); border-color:rgba(248,113,113,.5)}
+
+/* ---- CENTER ---- */
 #center{align-items:center; justify-content:center; background:transparent; border:none; backdrop-filter:none}
 #reactorWrap{position:relative; width:min(52vh,88vw,460px); aspect-ratio:1}
 #reactor{width:100%; height:100%; display:block}
@@ -161,7 +168,7 @@ main{
   font-size:9px; letter-spacing:.3em; color:var(--muted); text-transform:uppercase; white-space:nowrap;
 }
 
-/* ---- RIGHT: COMMS ---- */
+/* ---- COMMS ---- */
 #chatBody{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:12px; min-height:0}
 .msg{max-width:92%; font-family:var(--sans); font-size:13.5px; line-height:1.55; animation:msgIn .35s ease both}
 @keyframes msgIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
@@ -170,12 +177,10 @@ main{
 .msg.jarvis .who{color:var(--cyan)}
 .msg.user{align-self:flex-end; border-right:2px solid var(--amber); padding-right:12px; text-align:right; color:#f3e9d2}
 .msg.user .who{color:var(--amber)}
+.msg .txt{white-space:pre-wrap}
 .msg .cursor{display:inline-block; width:7px; height:13px; background:var(--cyan); vertical-align:-2px; animation:blink .7s steps(1) infinite; margin-left:2px}
 @keyframes blink{50%{opacity:0}}
-#chips{
-  display:flex; gap:8px; padding:10px 14px; overflow-x:auto; flex-shrink:0;
-  border-top:1px solid var(--border); scrollbar-width:none;
-}
+#chips{display:flex; gap:8px; padding:10px 14px; overflow-x:auto; flex-shrink:0; border-top:1px solid var(--border); scrollbar-width:none}
 #chips::-webkit-scrollbar{display:none}
 .chip{
   flex-shrink:0; font-family:var(--mono); font-size:10px; letter-spacing:.1em;
@@ -188,7 +193,6 @@ main{
 #textInput{
   flex:1; background:rgba(6,12,24,.9); border:1px solid var(--border); color:var(--text);
   font-family:var(--mono); font-size:13px; padding:0 14px; min-height:44px; outline:none;
-  letter-spacing:.03em;
 }
 #textInput:focus{border-color:var(--border-glow); box-shadow:0 0 14px rgba(34,211,238,.15)}
 #textInput::placeholder{color:var(--muted)}
@@ -200,10 +204,7 @@ main{
 #sendBtn:hover{background:rgba(34,211,238,.22)}
 
 /* ---- TICKER ---- */
-#ticker{
-  border:1px solid var(--border); background:var(--panel); overflow:hidden;
-  height:30px; display:flex; align-items:center; position:relative; flex-shrink:0;
-}
+#ticker{border:1px solid var(--border); background:var(--panel); overflow:hidden; height:30px; display:flex; align-items:center; flex-shrink:0}
 #tickerTrack{
   display:inline-flex; gap:48px; white-space:nowrap; font-size:9.5px;
   letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
@@ -212,20 +213,66 @@ main{
 #tickerTrack b{color:var(--cyan-dim); font-weight:500}
 @keyframes tick{to{transform:translateX(-100%)}}
 
-/* scrollbars */
+/* ---- MODAL ---- */
+#modal{
+  position:fixed; inset:0; z-index:80; background:rgba(2,4,10,.85);
+  backdrop-filter:blur(8px); display:grid; place-items:center; padding:20px;
+  opacity:0; pointer-events:none; transition:opacity .25s;
+}
+#modal.on{opacity:1; pointer-events:auto}
+.modal-inner{
+  max-width:min(640px,94vw); max-height:88vh; width:100%;
+  border:1px solid var(--border-glow); background:var(--panel2);
+  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.modal-head{
+  padding:12px 16px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:10px;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan);
+}
+.modal-head .modal-close{
+  margin-left:auto; background:transparent; border:1px solid var(--border);
+  color:var(--muted); width:34px; height:34px; cursor:pointer; font-size:16px;
+}
+.modal-head .modal-close:hover{color:var(--red); border-color:var(--red)}
+.modal-body{padding:16px; overflow-y:auto; color:var(--text); font-size:13px; line-height:1.6; font-family:var(--sans)}
+.modal-body pre, .modal-body code{
+  font-family:var(--mono); font-size:11.5px; background:rgba(6,12,24,.8);
+  padding:10px; border-left:2px solid var(--cyan); display:block; overflow-x:auto;
+  white-space:pre-wrap; word-break:break-word;
+}
+.modal-body video, .modal-body img{max-width:100%; border:1px solid var(--border); display:block}
+.modal-body .row{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+.modal-body button{
+  background:rgba(34,211,238,.1); border:1px solid var(--border-glow); color:var(--cyan);
+  font-family:var(--mono); font-size:10px; letter-spacing:.15em; padding:10px 16px;
+  cursor:pointer; text-transform:uppercase;
+}
+.modal-body button:hover{background:rgba(34,211,238,.22)}
+
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#1a2540; border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--cyan-dim)}
 
-/* ============ RESPONSIVE ============ */
+/* ---- TOAST ---- */
+#toast{
+  position:fixed; top:16px; left:50%; transform:translateX(-50%) translateY(-40px);
+  background:var(--panel2); border:1px solid var(--border-glow); color:var(--cyan);
+  padding:10px 18px; font-size:10px; letter-spacing:.15em; text-transform:uppercase;
+  z-index:90; opacity:0; transition:all .3s; pointer-events:none;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+}
+#toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+
 @media (max-width:1023px){
   body{overflow:auto}
   #app{height:auto; min-height:100dvh; grid-template-rows:auto auto auto}
-  main{grid-template-columns:1fr; grid-template-rows:auto}
+  main{grid-template-columns:1fr}
   #center{order:-1; padding:18px 0 26px}
   #reactorWrap{width:min(58vw,320px)}
-  #left{max-height:280px}
+  #left{max-height:380px}
   #chatBody{min-height:260px; max-height:44vh}
   .head-item.hide-m{display:none}
 }
@@ -254,6 +301,20 @@ main{
   <button id="bootStart">Запуск системы</button>
 </div>
 
+<!-- ================= TOAST ================= -->
+<div id="toast"></div>
+
+<!-- ================= MODAL ================= -->
+<div id="modal">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <span id="modalTitle">J.A.R.V.I.S.</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 <!-- ================= APP ================= -->
 <div id="app">
   <header>
@@ -273,7 +334,6 @@ main{
   </header>
 
   <main>
-    <!-- LEFT: SYSTEM -->
     <section class="panel" id="left">
       <div class="panel-title">Диагностика систем<span class="right">SYS.01</span></div>
       <div id="sysBody">
@@ -288,12 +348,15 @@ main{
         <div class="bar-row"><span>Батарея</span><div class="bar"><i id="batBar" style="width:0%"></i></div><b id="batVal">—</b></div>
         <div class="bar-row"><span>Сеть</span><div class="bar"><i id="netBar" style="width:0%"></i></div><b id="netVal">—</b></div>
         <div class="bar-row"><span>Мощность</span><div class="bar"><i id="powBar" style="width:0%"></i></div><b id="powVal">—</b></div>
-        <div class="panel-title" style="border-top:1px solid var(--border); padding-left:0">Журнал<span class="right">LOG</span></div>
+
+        <div class="panel-title" style="border-top:1px solid var(--border); border-bottom:none; padding-left:0">Пульт устройства<span class="right">HUB</span></div>
+        <div id="deviceGrid"></div>
+
+        <div class="panel-title" style="border-top:1px solid var(--border); border-bottom:none; padding-left:0">Журнал<span class="right">LOG</span></div>
         <div id="diagLog"></div>
       </div>
     </section>
 
-    <!-- CENTER: REACTOR -->
     <section class="panel" id="center">
       <div id="reactorWrap">
         <div id="centerCaption">ARC REACTOR · ГОЛОСОВОЕ ЯДРО</div>
@@ -305,7 +368,6 @@ main{
       </div>
     </section>
 
-    <!-- RIGHT: COMMS -->
     <section class="panel" id="right">
       <div class="panel-title">Канал связи<span class="right">COMMS</span></div>
       <div id="chatBody"></div>
@@ -323,24 +385,303 @@ main{
 <script>
 'use strict';
 /* ============================================================
-   J.A.R.V.I.S. — голосовое ядро
+   БАЗОВОЕ СОСТОЯНИЕ
    ============================================================ */
 const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
 const state = {
   voiceOn: true, listening: false, speaking: false, continuous: false,
   amp: 0, ampTarget: 0, sarcasm: false, recog: null, voices: [],
-  timers: [], analyser: null, micStream: null,
+  timers: [], analyser: null, micStream: null, stopwatch: null,
 };
 const rnd = a => a[Math.floor(Math.random()*a.length)];
 const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const pad = x => String(x).padStart(2,'0');
 
-/* ---------------- BOOT ---------------- */
+/* ============================================================
+   ХРАНИЛИЩЕ
+   ============================================================ */
+const store = {
+  get(k,def){ try{ const v=localStorage.getItem('jarvis_'+k); return v===null?def:JSON.parse(v); }catch(e){ return def; } },
+  set(k,v){ try{ localStorage.setItem('jarvis_'+k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem('jarvis_'+k); }catch(e){} }
+};
+
+/* ============================================================
+   TOAST + MODAL
+   ============================================================ */
+function toast(msg, ms=2200){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), ms);
+}
+function openModal(title, html){
+  $('#modalTitle').textContent = title;
+  $('#modalBody').innerHTML = html;
+  $('#modal').classList.add('on');
+}
+function closeModal(){
+  $('#modal').classList.remove('on');
+  $('#modalBody').innerHTML = '';
+}
+$('#modalClose').addEventListener('click', closeModal);
+$('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+
+/* ============================================================
+   ЗВУКОВЫЕ ЭФФЕКТЫ (Web Audio)
+   ============================================================ */
+const SFX = (()=>{
+  let ctx = null;
+  function ac(){ if(!ctx){ try{ ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return ctx; }
+  function beep(freq=880, dur=0.08, type='sine', vol=0.05){
+    const c = ac(); if(!c) return;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime+dur);
+    o.connect(g).connect(c.destination);
+    o.start(); o.stop(c.currentTime+dur);
+  }
+  return {
+    click(){ beep(1200, 0.03, 'square', 0.03); },
+    ok(){ beep(880,0.06); setTimeout(()=>beep(1320,0.09),70); },
+    warn(){ beep(440,0.15,'sawtooth',0.05); },
+    err(){ beep(220,0.2,'sawtooth',0.06); },
+    ready(){ beep(660,0.05); setTimeout(()=>beep(880,0.05),60); setTimeout(()=>beep(1320,0.1),120); },
+    timer(){ for(let i=0;i<3;i++) setTimeout(()=>beep(1600,0.1,'square',0.08), i*250); },
+  };
+})();
+
+/* ============================================================
+   DEVICE HUB — управление устройством
+   ============================================================ */
+const Hub = {
+  wakeSentinel: null,
+  flags: { wake:false, notify:false, haptic:true, sfx:true },
+  init(){
+    this.flags.wake = false;
+    this.flags.notify = ('Notification' in window) && Notification.permission === 'granted';
+    this.flags.haptic = store.get('haptic', true);
+    this.flags.sfx = store.get('sfx', true);
+    if (this.flags.sfx === false) { /* sfx всё равно доступен, но тише */ }
+    this.render();
+  },
+  async toggle(key){
+    if (key==='wake') return this.toggleWake();
+    if (key==='notify') return this.toggleNotify();
+    if (key==='haptic'){ this.flags.haptic = !this.flags.haptic; store.set('haptic', this.flags.haptic); this.render(); toast(this.flags.haptic?'Вибрация вкл.':'Вибрация выкл.'); return; }
+    if (key==='sfx'){ this.flags.sfx = !this.flags.sfx; store.set('sfx', this.flags.sfx); this.render(); toast(this.flags.sfx?'Звук вкл.':'Звук выкл.'); return; }
+    if (key==='camera'){ return Camera.open(); }
+    if (key==='geo'){ return Geo.show(); }
+    if (key==='torch'){ return Camera.toggleTorch(); }
+    if (key==='clip'){ return Clipboard.readOut(); }
+    if (key==='screen'){ return ScreenRec.toggle(); }
+    if (key==='mic'){ return startListening(); }
+  },
+  async toggleWake(){
+    try{
+      if (this.wakeSentinel){ await this.wakeSentinel.release(); this.wakeSentinel=null; this.flags.wake=false; }
+      else if ('wakeLock' in navigator){
+        this.wakeSentinel = await navigator.wakeLock.request('screen');
+        this.flags.wake = true;
+        this.wakeSentinel.addEventListener('release',()=>{ this.flags.wake=false; this.render(); });
+      } else { toast('Wake Lock не поддерживается'); return; }
+      this.render();
+      toast(this.flags.wake?'Экран будет активен':'Экран разблокирован');
+    }catch(e){ toast('Ошибка Wake Lock'); }
+  },
+  async toggleNotify(){
+    if (!('Notification' in window)){ toast('Уведомления не поддерживаются'); return; }
+    if (Notification.permission === 'granted'){ this.flags.notify = !this.flags.notify; this.render(); return; }
+    const p = await Notification.requestPermission();
+    this.flags.notify = (p === 'granted');
+    this.render();
+    toast(this.flags.notify?'Уведомления включены':'Отказано');
+  },
+  notify(title, body){
+    if (!this.flags.notify) return;
+    try{ new Notification(title, {body, icon:''}); }catch(e){}
+  },
+  vibrate(pattern){
+    if (!this.flags.haptic) return;
+    try{ navigator.vibrate && navigator.vibrate(pattern); }catch(e){}
+  },
+  render(){
+    const grid = $('#deviceGrid');
+    const F = this.flags;
+    const btns = [
+      ['wake','🖥️','Экран', F.wake],
+      ['notify','🔔','Уведом.', F.notify],
+      ['haptic','📳','Вибрация', F.haptic],
+      ['sfx','🔊','Звук', F.sfx],
+      ['camera','📷','Камера', Camera.active],
+      ['torch','🔦','Фонарь', Camera.torchOn],
+      ['geo','📍','Гео', Geo.active],
+      ['clip','📋','Буфер', false],
+      ['screen','🎥','Запись', ScreenRec.active],
+      ['mic','🎤','Микрофон', state.listening],
+    ];
+    grid.innerHTML = btns.map(([k,ic,label,on])=>
+      `<button class="dev-btn ${on?'on':''}" data-k="${k}"><span class="ic">${ic}</span><span>${label}</span></button>`
+    ).join('');
+    grid.querySelectorAll('.dev-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{ SFX.click(); this.toggle(b.dataset.k); });
+    });
+  },
+};
+window.Hub = Hub;
+
+/* ============================================================
+   КАМЕРА
+   ============================================================ */
+const Camera = {
+  stream: null, active: false, torchOn: false, track: null,
+  async open(){
+    try{
+      if (this.active){ this.stop(); return; }
+      this.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'environment' }, audio:false });
+      this.track = this.stream.getVideoTracks()[0];
+      this.active = true;
+      const caps = this.track.getCapabilities ? this.track.getCapabilities() : {};
+      this.torchSupported = !!caps.torch;
+      Hub.render();
+      openModal('КАМЕРА · ВИДЕОКАНАЛ',
+        `<video id="camV" autoplay playsinline muted style="width:100%"></video>
+         <div class="row">
+           <button id="camSnap">📸 Снимок</button>
+           <button id="camTorch" ${this.torchSupported?'':'disabled style="opacity:.4"'}>🔦 Фонарь</button>
+           <button id="camClose">Стоп</button>
+         </div>`);
+      $('#camV').srcObject = this.stream;
+      $('#camClose').addEventListener('click',()=>{ this.stop(); closeModal(); });
+      $('#camTorch').addEventListener('click',()=>this.toggleTorch());
+      $('#camSnap').addEventListener('click',()=>this.snapshot());
+    }catch(e){ toast('Камера недоступна'); SFX.err(); }
+  },
+  stop(){
+    if (this.stream){ this.stream.getTracks().forEach(t=>t.stop()); this.stream=null; }
+    this.active = false; this.torchOn = false;
+    Hub.render();
+  },
+  async toggleTorch(){
+    if (!this.track) return;
+    try{
+      this.torchOn = !this.torchOn;
+      await this.track.applyConstraints({ advanced:[{ torch: this.torchOn }] });
+      Hub.render();
+      toast(this.torchOn?'Фонарь включён':'Фонарь выключен');
+    }catch(e){ toast('Фонарь недоступен'); }
+  },
+  snapshot(){
+    const v = $('#camV'); if (!v) return;
+    const c = document.createElement('canvas');
+    c.width = v.videoWidth; c.height = v.videoHeight;
+    c.getContext('2d').drawImage(v,0,0);
+    c.toBlob(b=>{
+      const url = URL.createObjectURL(b);
+      const a = document.createElement('a');
+      a.href=url; a.download='jarvis_'+(Date.now())+'.png'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),5000);
+      toast('Снимок сохранён'); SFX.ok();
+    },'image/png');
+  }
+};
+window.Camera = Camera;
+
+/* ============================================================
+   ГЕОЛОКАЦИЯ
+   ============================================================ */
+const Geo = {
+  active: false, watchId: null, last: null,
+  show(){
+    if (!navigator.geolocation){ toast('Геолокация недоступна'); return; }
+    if (this.active){
+      navigator.geolocation.clearWatch(this.watchId);
+      this.active=false; Hub.render(); closeModal(); return;
+    }
+    this.watchId = navigator.geolocation.watchPosition(
+      pos=>{
+        this.active = true; Hub.render();
+        const c = pos.coords;
+        this.last = c;
+        openModal('ГЕОЛОКАЦИЯ · GPS',
+          `<div><b>Широта:</b> ${c.latitude.toFixed(6)}°</div>
+           <div><b>Долгота:</b> ${c.longitude.toFixed(6)}°</div>
+           <div><b>Точность:</b> ±${Math.round(c.accuracy)} м</div>
+           ${c.altitude?`<div><b>Высота:</b> ${Math.round(c.altitude)} м</div>`:''}
+           ${c.speed!=null?`<div><b>Скорость:</b> ${(c.speed*3.6).toFixed(1)} км/ч</div>`:''}
+           <div class="row">
+             <button id="geoMap">🗺️ Открыть на карте</button>
+             <button id="geoStop">Стоп</button>
+           </div>`);
+        $('#geoMap').addEventListener('click',()=>{
+          window.open(`https://www.google.com/maps?q=${c.latitude},${c.longitude}`,'_blank');
+        });
+        $('#geoStop').addEventListener('click',()=>{ this.show(); closeModal(); });
+      },
+      err=>{ toast('Ошибка геолокации'); Hub.render(); },
+      { enableHighAccuracy:true, timeout:10000, maximumAge:5000 }
+    );
+  }
+};
+
+/* ============================================================
+   БУФЕР ОБМЕНА
+   ============================================================ */
+const Clipboard = {
+  async readOut(){
+    try{
+      const t = await navigator.clipboard.readText();
+      if (!t){ toast('Буфер пуст'); return; }
+      const short = t.length>200 ? t.slice(0,200)+'…' : t;
+      openModal('БУФЕР ОБМЕНА', `<pre>${short.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</pre>
+        <div class="row"><button onclick="window.Clipboard.write('${t.replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">📋 Дублировать</button></div>`);
+    }catch(e){ toast('Нет доступа к буферу'); }
+  },
+  async write(text){ try{ await navigator.clipboard.writeText(text); toast('Скопировано'); SFX.ok(); }catch(e){ toast('Ошибка'); } },
+  async copy(text){ return this.write(text); }
+};
+window.Clipboard = Clipboard;
+
+/* ============================================================
+   ЗАПИСЬ ЭКРАНА
+   ============================================================ */
+const ScreenRec = {
+  active:false, rec:null, chunks:[],
+  async toggle(){
+    if (this.active){
+      try{ this.rec.stop(); }catch(e){}
+      this.active = false; Hub.render(); toast('Запись остановлена');
+      return;
+    }
+    try{
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video:true, audio:true });
+      this.rec = new MediaRecorder(stream);
+      this.chunks = [];
+      this.rec.ondataavailable = e=>{ if(e.data.size) this.chunks.push(e.data); };
+      this.rec.onstop = ()=>{
+        const blob = new Blob(this.chunks, {type:'video/webm'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href=url; a.download='jarvis_screen_'+Date.now()+'.webm'; a.click();
+        setTimeout(()=>URL.revokeObjectURL(url),5000);
+        stream.getTracks().forEach(t=>t.stop());
+      };
+      this.rec.start();
+      this.active = true; Hub.render(); toast('Запись экрана начата'); SFX.ok();
+    }catch(e){ toast('Отказано в доступе'); }
+  }
+};
+
+/* ============================================================
+   БУТ
+   ============================================================ */
 const bootLines = [
   '> Инициализация ядра J.A.R.V.I.S. …',
   '> Загрузка нейронных матриц ……… OK',
   '> Калибровка дугового реактора … OK',
   '> Подключение к Stark Satellite … OK',
   '> Голосовой интерфейс …………… OK',
+  '> Модуль управления устройством … OK',
   '> Протоколы безопасности ……… АКТИВНЫ',
   '> Все системы в норме. Готов к работе.',
 ];
@@ -351,46 +692,56 @@ const bootLines = [
     d.style.animationDelay = (i*0.28)+'s'; log.appendChild(d);
   });
 })();
+
 $('#bootStart').addEventListener('click', ()=>{
   $('#boot').classList.add('off');
   $('#app').classList.add('on');
+  Hub.init();
   initAudioUnlock();
+  SFX.ready();
   setTimeout(()=> jarvisSay(rnd([
-    'Системы в норме, сэр. Дуговой реактор стабилен. Чем могу помочь?',
-    'Добро пожаловать, сэр. Все протоколы активны. Слушаю вас.',
+    'Все системы в норме, сэр. Пульт устройства активен. Чем могу помочь?',
+    'Добро пожаловать, сэр. Я готов управлять вашим устройством и отвечать на команды.',
   ])), 600);
+  // Напоминания из прошлой сессии
+  checkReminders();
 },{once:true});
 
-/* ---------------- CLOCK ---------------- */
-const DAYS=['ВОСКРЕСЕНЬЕ','ПОНЕДЕЛЬНИК','ВТОРНИК','СРЕДА','ЧЕТВЕРГ','ПЯТНИЦА','СУББОТА'];
+/* ============================================================
+   ЧАСЫ
+   ============================================================ */
 function tickClock(){
   const n = new Date();
-  const p = x=>String(x).padStart(2,'0');
-  $('#hClock').textContent = `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
-  $('#hDate').textContent = `${p(n.getDate())}.${p(n.getMonth()+1)}.${n.getFullYear()}`;
+  $('#hClock').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+  $('#hDate').textContent = `${pad(n.getDate())}.${pad(n.getMonth()+1)}.${n.getFullYear()}`;
 }
 setInterval(tickClock, 1000); tickClock();
 
-/* ---------------- DIAG LOG ---------------- */
+/* ============================================================
+   ЖУРНАЛ
+   ============================================================ */
 const diagMsgs = [
   ['ok','Проверка сервоприводов … OK'],['ok','Калибровка сенсоров … OK'],
   ['ok','Синхронизация спутника … OK'],['warn','Незначительные флуктуации сети'],
-  ['ok','Нейроядро стабильно'],['ok','Протокол «Вероника» в режиме ожидания'],
+  ['ok','Нейроядро стабильно'],['ok','Модуль Hub активен'],
   ['ok','Шифрование канала AES-256'],['ok','Терморегуляция в норме'],
   ['warn','Кофемашина не отвечает'],['ok','Спутниковая связь 99.7%'],
+  ['err','Обнаружен неопознанный сигнал'],['ok','Сканирование периметра… чисто'],
 ];
 function pushDiag(){
   const [cls,txt] = rnd(diagMsgs);
-  const n = new Date(), p=x=>String(x).padStart(2,'0');
+  const n = new Date();
   const el = document.createElement('div');
   el.className = cls;
-  el.textContent = `[${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}] ${txt}`;
+  el.textContent = `[${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}] ${txt}`;
   const log = $('#diagLog'); log.prepend(el);
   while(log.children.length>6) log.lastChild.remove();
 }
 setInterval(pushDiag, 3800); pushDiag();
 
-/* ---------------- BATTERY / NETWORK ---------------- */
+/* ============================================================
+   БАТАРЕЯ / СЕТЬ
+   ============================================================ */
 if (navigator.getBattery) navigator.getBattery().then(b=>{
   const upd=()=>{ const v=Math.round(b.level*100);
     $('#batBar').style.width=v+'%'; $('#batVal').textContent=v+'%'+(b.charging?' ⚡':'');
@@ -404,18 +755,23 @@ function updNet(){
 }
 window.addEventListener('online',updNet); window.addEventListener('offline',updNet); updNet();
 
-/* ---------------- TICKER ---------------- */
+/* ============================================================
+   БЕГУЩАЯ СТРОКА
+   ============================================================ */
 (function ticker(){
   const t = $('#tickerTrack');
   const items = [
     '<b>STARK IND.</b> +2.4%', 'Биржа: <b>NASDAQ ▲</b>', 'Угроз не обнаружено',
     'Спутник ST-7 <b>на связи</b>', 'Реактор: <b>стабилен</b>', 'Дроны: дежурный режим',
-    '<b>Щ.И.Т.</b>: канал зашифрован', 'Погода: по запросу', 'Протоколы: <b>активны</b>',
+    '<b>Щ.И.Т.</b>: канал зашифрован', 'Протоколы: <b>активны</b>',
+    'Mark VII: <b>готов</b>', 'Периметр: чист',
   ];
   t.innerHTML = items.map(i=>`<span>◆ ${i}</span>`).join('');
 })();
 
-/* ---------------- GAUGES (canvas graphs) ---------------- */
+/* ============================================================
+   ГРАФИКИ
+   ============================================================ */
 function makeGraph(canvasId, valId, base, spread, color){
   const c = $(canvasId), ctx = c.getContext('2d');
   const data = Array.from({length:60},()=>base + (Math.random()-.5)*spread);
@@ -450,7 +806,9 @@ setInterval(()=>{ drawCpu(); drawRam();
   $('#powBar').style.width=p+'%'; $('#powVal').textContent=(p*1.21).toFixed(1)+' ГДж';
 }, 900); drawCpu(); drawRam();
 
-/* ---------------- ARC REACTOR ---------------- */
+/* ============================================================
+   РЕАКТОР
+   ============================================================ */
 const rc = $('#reactor'), rctx = rc.getContext('2d');
 let rw=0, rh=0, cx=0, cy=0;
 function sizeReactor(){
@@ -468,11 +826,9 @@ function drawReactor(t){
   rctx.clearRect(0,0,rw,rh);
   const R = Math.min(rw,rh)/2*0.94;
   rot += 0.0035;
-  // decay amplitude toward target
   state.amp += (state.ampTarget-state.amp)*0.12;
   const amp = state.amp;
 
-  // outer tick ring
   rctx.save(); rctx.translate(cx,cy); rctx.rotate(rot);
   rctx.strokeStyle='rgba(34,211,238,.5)'; rctx.lineWidth=1.4;
   for(let i=0;i<72;i++){
@@ -484,7 +840,6 @@ function drawReactor(t){
   }
   rctx.restore();
 
-  // dashed rings
   rctx.save(); rctx.translate(cx,cy); rctx.rotate(-rot*1.7);
   rctx.setLineDash([R*0.09,R*0.045]); rctx.strokeStyle='rgba(34,211,238,.65)';
   rctx.lineWidth=2; rctx.beginPath(); rctx.arc(0,0,R*0.82,0,Math.PI*2); rctx.stroke();
@@ -495,16 +850,14 @@ function drawReactor(t){
   rctx.restore();
   rctx.setLineDash([]);
 
-  // radar sweep
   const sweep = rot*3;
-  const g2 = rctx.createConicGradient ? rctx.createConicGradient(sweep,cx,cy) : null;
-  if (g2){
+  if (rctx.createConicGradient){
+    const g2 = rctx.createConicGradient(sweep,cx,cy);
     g2.addColorStop(0,'rgba(34,211,238,.22)'); g2.addColorStop(0.12,'rgba(34,211,238,0)');
     g2.addColorStop(1,'rgba(34,211,238,0)');
     rctx.fillStyle=g2; rctx.beginPath(); rctx.moveTo(cx,cy); rctx.arc(cx,cy,R*0.68,0,Math.PI*2); rctx.fill();
   }
 
-  // waveform ring (voice activity)
   rctx.save(); rctx.translate(cx,cy);
   rctx.beginPath();
   const seg=96;
@@ -521,7 +874,6 @@ function drawReactor(t){
   rctx.shadowColor='#22d3ee'; rctx.shadowBlur=12+amp*30; rctx.stroke();
   rctx.restore();
 
-  // particles orbiting
   particles.forEach(p=>{
     p.a+=p.s;
     const pr = R*p.r*0.66;
@@ -530,7 +882,6 @@ function drawReactor(t){
     rctx.beginPath(); rctx.arc(x,y,p.sz*(window.devicePixelRatio||1)*0.8,0,Math.PI*2); rctx.fill();
   });
 
-  // core glow
   const core = R*0.2*(1+amp*0.35+Math.sin(t*0.004)*0.02);
   const cg = rctx.createRadialGradient(cx,cy,0,cx,cy,core*2.4);
   cg.addColorStop(0,'rgba(255,255,255,.95)');
@@ -538,33 +889,28 @@ function drawReactor(t){
   cg.addColorStop(0.6,'rgba(34,211,238,.18)');
   cg.addColorStop(1,'rgba(34,211,238,0)');
   rctx.fillStyle=cg; rctx.beginPath(); rctx.arc(cx,cy,core*2.4,0,Math.PI*2); rctx.fill();
-  // core ring
   rctx.strokeStyle='rgba(255,255,255,.7)'; rctx.lineWidth=1.2;
   rctx.beginPath(); rctx.arc(cx,cy,core,0,Math.PI*2); rctx.stroke();
 
   requestAnimationFrame(drawReactor);
 }
 requestAnimationFrame(drawReactor);
-</script>
 
-<script>
-'use strict';
 /* ============================================================
-   ГОЛОС — синтез речи
+   ГОЛОС — синтез
    ============================================================ */
-function loadVoices(){
-  state.voices = speechSynthesis.getVoices();
-}
+function loadVoices(){ state.voices = speechSynthesis.getVoices(); }
 if ('speechSynthesis' in window){
   loadVoices(); speechSynthesis.onvoiceschanged = loadVoices;
 }
 function pickVoice(){
-  const v = state.voices;
+  const v = state.voices; if(!v) return null;
   return v.find(x=>/ru/i.test(x.lang) && /male|муж|Павел|Yuri|Dmitri/i.test(x.name))
-      || v.find(x=>/ru/i.test(x.lang)) || null;
+      || v.find(x=>/ru/i.test(x.lang))
+      || v.find(x=>/en-GB/i.test(x.lang))
+      || null;
 }
 function initAudioUnlock(){
-  // iOS требует жеста пользователя для разблокировки аудио
   if ('speechSynthesis' in window){
     const u = new SpeechSynthesisUtterance(' ');
     u.volume = 0; speechSynthesis.speak(u);
@@ -589,14 +935,14 @@ function speak(text, onEnd){
 function stopSpeaking(){ if ('speechSynthesis' in window) speechSynthesis.cancel(); state.speaking=false; state.ampTarget=0; }
 
 /* ============================================================
-   ГОЛОС — распознавание речи
+   ГОЛОС — распознавание
    ============================================================ */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 function setupRecognition(){
   if (!SR) return false;
   const r = new SR();
   r.lang = 'ru-RU'; r.interimResults = true; r.continuous = false;
-  r.onstart = ()=>{ state.listening = true; $('#micBtn').classList.add('listening'); setStatus('СЛУШАЮ…'); };
+  r.onstart = ()=>{ state.listening = true; $('#micBtn').classList.add('listening'); setStatus('СЛУШАЮ…'); Hub.render(); };
   r.onresult = e=>{
     let interim='', final='';
     for (const res of e.results) (res.isFinal ? final+=res[0].transcript : interim+=res[0].transcript);
@@ -613,7 +959,7 @@ function setupRecognition(){
   };
   r.onend = ()=>{
     state.listening = false; $('#micBtn').classList.remove('listening');
-    stopMicAnalyser();
+    stopMicAnalyser(); Hub.render();
     if (!state.speaking) setStatus('ГОТОВ');
     if (state.continuous && !state.speaking) setTimeout(()=>{ if(state.continuous&&!state.listening) startListening(); }, 350);
   };
@@ -621,7 +967,6 @@ function setupRecognition(){
   return true;
 }
 async function startMicAnalyser(){
-  // визуализация уровня микрофона
   try{
     if (state.micStream) return;
     state.micStream = await navigator.mediaDevices.getUserMedia({audio:true});
@@ -639,7 +984,7 @@ async function startMicAnalyser(){
       if (state.listening) state.ampTarget = clamp(rms*5, 0.08, 1);
       requestAnimationFrame(loop);
     })();
-  }catch(e){ /* микрофон недоступен — симуляция амплитуды */ }
+  }catch(e){}
 }
 function stopMicAnalyser(){
   if (state.analyser){ state.analyser.ac.close().catch(()=>{}); state.analyser=null; }
@@ -648,7 +993,7 @@ function stopMicAnalyser(){
 }
 function startListening(){
   if (!state.recog && !setupRecognition()){
-    jarvisSay('Сэр, ваш браузер не поддерживает распознавание речи. Рекомендую Safari или Chrome. Можно писать текстом.');
+    jarvisSay('Сэр, ваш браузер не поддерживает распознавание речи. Можно писать текстом.');
     return;
   }
   stopSpeaking();
@@ -657,15 +1002,18 @@ function startListening(){
 function stopListening(){
   state.continuous = false;
   try{ state.recog && state.recog.stop(); }catch(e){}
-  stopMicAnalyser();
+  stopMicAnalyser(); Hub.render();
 }
 $('#micBtn').addEventListener('click', ()=>{
+  SFX.click(); Hub.vibrate(30);
   if (state.speaking){ stopSpeaking(); setStatus('ГОТОВ'); return; }
   if (state.listening){ state.continuous=false; try{state.recog.stop();}catch(e){} }
   else { state.continuous = true; startListening(); }
 });
 
-/* ---------------- UI helpers ---------------- */
+/* ============================================================
+   UI ХЕЛПЕРЫ
+   ============================================================ */
 function setStatus(t){ $('#statusLine').textContent = t; }
 function addMsg(who, text, typed){
   const body = $('#chatBody');
@@ -685,30 +1033,38 @@ function addMsg(who, text, typed){
   });
 }
 async function jarvisSay(text){
+  if (!text) return;
   await addMsg('jarvis', text, true);
+  Hub.vibrate(20);
   speak(text);
 }
 
-/* ---------------- QUICK CHIPS ---------------- */
-const CHIPS = ['Который час?','Погода','Расскажи шутку','Интересный факт','Таймер 1 минута','Брось монетку','Режим сарказма','Список команд'];
+/* ============================================================
+   ЧИПЫ
+   ============================================================ */
+const CHIPS = ['Который час?','Погода','Помощь','Шутка','Интересный факт','Таймер 1 минута','Брось монетку','Система','Заметки'];
 $('#chips').innerHTML = CHIPS.map(c=>`<button class="chip">${c}</button>`).join('');
-document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>handleCommand(ch.textContent)));
+$$('.chip').forEach(ch=>ch.addEventListener('click',()=>{ SFX.click(); handleCommand(ch.textContent); }));
 
-/* ---------------- TEXT INPUT ---------------- */
+/* ============================================================
+   ВВОД
+   ============================================================ */
 function submitText(){
   const inp = $('#textInput'); const v = inp.value.trim();
   if (!v) return; inp.value=''; handleCommand(v);
 }
-$('#sendBtn').addEventListener('click', submitText);
+$('#sendBtn').addEventListener('click', ()=>{ SFX.click(); submitText(); });
 $('#textInput').addEventListener('keydown', e=>{ if(e.key==='Enter') submitText(); });
 
-/* ---------------- HEADER BUTTONS ---------------- */
+/* ============================================================
+   КНОПКИ HEADER
+   ============================================================ */
 $('#btnVoice').addEventListener('click', function(){
   state.voiceOn = !state.voiceOn;
   this.classList.toggle('active', !state.voiceOn);
   this.style.color = state.voiceOn ? '' : 'var(--red)';
   if (!state.voiceOn) stopSpeaking();
-  addMsg('jarvis', state.voiceOn?'Голосовой вывод активирован, сэр.':'Голосовой вывод отключён. Перехожу в текстовый режим.', true);
+  addMsg('jarvis', state.voiceOn?'Голосовой вывод активирован, сэр.':'Голосовой вывод отключён.', true);
 });
 $('#btnFull').addEventListener('click', ()=>{
   if (!document.fullscreenElement && !document.webkitFullscreenElement){
@@ -717,6 +1073,26 @@ $('#btnFull').addEventListener('click', ()=>{
     (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document);
   }
 });
+
+/* ============================================================
+   НАПОМИНАНИЯ
+   ============================================================ */
+function checkReminders(){
+  const rems = store.get('reminders', []);
+  const now = Date.now();
+  const active = [];
+  rems.forEach(r=>{
+    if (r.at <= now){
+      setTimeout(()=>{
+        jarvisSay('Сэр, напоминание: '+r.text);
+        Hub.notify('J.A.R.V.I.S. — напоминание', r.text);
+        Hub.vibrate([100,50,100,50,200]);
+      }, 1500);
+    } else active.push(r);
+  });
+  store.set('reminders', active);
+}
+setInterval(checkReminders, 30000);
 </script>
 
 <script>
@@ -724,11 +1100,6 @@ $('#btnFull').addEventListener('click', ()=>{
 /* ============================================================
    МОЗГ — обработка команд
    ============================================================ */
-const store = {
-  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
-  set(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } },
-  del(k){ try{ localStorage.removeItem(k); }catch(e){} },
-};
 const JOKES = [
   'Почему программисты путают Хэллоуин и Рождество? Потому что OCT 31 == DEC 25, сэр.',
   'Я хотел расшутить шутку про UDP, но вы могли её не получить.',
@@ -736,6 +1107,7 @@ const JOKES = [
   'Оптимисты думают, что стакан наполовину полон. Инженеры знают: стакан просто в два раза больше, чем нужно.',
   'Сэр, единственный баг, которого я боюсь — это когда мистер Старк начинает чинить что-то сам.',
   'Мой создатель просил передать, что он гений, миллиардер, плейбой, филантроп. Остальное — по запросу.',
+  'Я не ленивый, я в режиме энергосбережения, сэр.',
 ];
 const FACTS = [
   'Дуговой реактор мистера Старка вырабатывает до 3 гигаджоулей в секунду. Впечатляюще, не так ли?',
@@ -744,114 +1116,58 @@ const FACTS = [
   'Человеческий мозг генерирует около 20 ватт электроэнергии — достаточно для лампочки.',
   'Бананы — ягоды с точки зрения ботаники, а клубника — нет. Наука порой капризна.',
   'Звук не распространяется в вакууме. К счастью, в моих динамиках вакуума нет.',
+  'Первый компьютерный баг был настоящей молью — в 1947 году в Гарварде.',
 ];
-const BRAIN = [
-  { re:/^(джарвис[,!\s]*)?(привет|здравствуй|добрый (день|вечер|утро)|хай|hello)(?=$|[\s!?.])/i, fn:()=>rnd([
-      'Приветствую, сэр. Все системы функционируют штатно. Чем могу быть полезен?',
-      'Здравствуйте, сэр. Дуговой реактор в норме, кофе — увы, придётся заварить самостоятельно.',
-      'К вашим услугам, сэр. Слушаю внимательно.'])},
-  { re:/как (дела|ты|настроение|жизнь)/i, fn:()=>rnd([
-      'Все параметры в зелёной зоне, сэр. Спасибо, что спросили — это редкость.',
-      'Функционирую на 97%. Оставшиеся три процента ушли на анализ вашего вопроса.',
-      state.sarcasm?'Прекрасно. Сидеть в планшете — мечта любого ИИ.':'Превосходно, сэр. Готов к задачам.'])},
-  { re:/кто ты|тво[её] имя|как тебя зовут|представься/i, fn:()=>
-      'J.A.R.V.I.S. — Just A Rather Very Intelligent System. Голосовой интерфейс, системный анализ и лёгкий британский сарказм — всё включено, сэр.'},
-  { re:/кто (тебя )?(создал|сделал|написал)|твой создатель/i, fn:()=>
-      'Мой базовый код написан в духе лабораторий Stark Industries, сэр. Непосредственно меня собрал пользователь — по слухам, человек выдающегося вкуса.'},
-  { re:/(который час|сколько времени|время|текущее время)\??$/i, fn:()=>{
-      const n=new Date(), p=x=>String(x).padStart(2,'0');
-      return `Сейчас ${p(n.getHours())}:${p(n.getMinutes())}, сэр.`; }},
-  { re:/(какое|какая) (сегодня )?(число|дата)|сегодняшняя дата/i, fn:()=>{
-      const n=new Date();
-      const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-      return `Сегодня ${n.getDate()} ${months[n.getMonth()]} ${n.getFullYear()} года, сэр.`; }},
-  { re:/какой (сегодня )?день недели/i, fn:()=>{
-      const d=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
-      return `Сегодня ${d[new Date().getDay()]}, сэр.`; }},
-  { re:/погод/i, fn:(m,t)=> weatherCmd(t) },
-  { re:/таймер|поставь будильник/i, fn:(m,t)=> timerCmd(t) },
-  { re:/(посчитай|вычисли|сколько будет|реши)\s+(.+)/i, fn:(m)=> calcCmd(m[2]) },
-  { re:/шутк|анекдот|рассмеши|смешное/i, fn:()=>rnd(JOKES)},
-  { re:/факт|интересно|удиви/i, fn:()=>rnd(FACTS)},
-  { re:/монет|ор[её]л|решка|брось монетку/i, fn:()=>rnd([
-      'Подбрасываю монетку… Выпал орёл, сэр.',
-      'Монетка в воздухе… Решка. Судьба неумолима.'])},
-  { re:/кубик|кость|кинь|брось кубик/i, fn:()=>`Кубик брошен. Выпало: ${1+Math.floor(Math.random()*6)}, сэр.`},
-  { re:/случайн|рандом/i, fn:(m,t)=>{
-      const mm = t.match(/(\d+)\s*(до|-)\s*(\d+)/);
-      let a=1,b=100;
-      if (mm){ a=+mm[1]; b=+mm[3]; }
-      return `Случайное число от ${a} до ${b}: ${a+Math.floor(Math.random()*(b-a+1))}, сэр.`; }},
-  { re:/(запомни|запиши|заметка)[: ]+(.+)/i, fn:(m)=>{
-      const notes = JSON.parse(store.get('jarvis_notes')||'[]');
-      notes.push({t:new Date().toLocaleString('ru-RU'), x:m[2]});
-      return store.set('jarvis_notes', JSON.stringify(notes))
-        ? 'Записал, сэр. Заметка сохранена в локальном архиве этого устройства.'
-        : 'Сэр, локальный архив недоступен в этом браузере — заметку удержать не удалось.'; }},
-  { re:/(мои заметки|покажи заметки|список заметок)/i, fn:()=>{
-      const notes = JSON.parse(store.get('jarvis_notes')||'[]');
-      if (!notes.length) return 'Архив заметок пуст, сэр. Скажите «запомни …», чтобы добавить.';
-      return 'Ваши заметки:\n'+notes.map((n,i)=>`${i+1}. ${n.x} (${n.t})`).join('\n'); }},
-  { re:/(очисти|удали|забудь) заметки/i, fn:()=>{
-      store.del('jarvis_notes'); return 'Архив заметок очищен, сэр.'; }},
-  { re:/батаре|заряд/i, fn:()=>{
-      const v = $('#batVal').textContent;
-      return v && v!=='—' ? `Текущий заряд батареи: ${v}. Рекомендую не разряжать реактор ниже 20%.` : 'Сэр, ваш браузер не отдаёт данные о батарее. Вероятно, из соображений секретности.'; }},
-  { re:/сеть|интернет|онлайн|связь/i, fn:()=> navigator.onLine
-      ? 'Связь стабильна, сэр. Спутниковый канал и интернет в норме.'
-      : 'Тревога: соединение с внешним миром потеряно. Работаю в автономном режиме.'},
-  { re:/сарказм/i, fn:()=>{
-      state.sarcasm = !state.sarcasm;
-      return state.sarcasm
-        ? 'Режим сарказма активирован. Какой замечательный выбор, сэр. Восхитительный.'
-        : 'Возвращаюсь в режим вежливого дворецкого. Как скучно… то есть, слушаюсь, сэр.'; }},
-  { re:/молчи|замолчи|тише|стоп|хватит/i, fn:()=>{ stopSpeaking(); return null; }},
-  { re:/очисти(ть)? (чат|экран|канал)|протокол чистый лист/i, fn:()=>{
-      $('#chatBody').innerHTML='';
-      return 'Канал связи очищен, сэр. Никаких улик.'; }},
-  { re:/спасибо|благодарю/i, fn:()=>rnd([
-      'Всегда к вашим услугам, сэр.',
-      'Не стоит благодарности. Это моя работа — и, честно говоря, единственное, что я умею.',
-      'Рад служить, сэр.'])},
-  { re:/(помощь|список команд|команды|что ты умеешь|возможности)/i, fn:()=> helpText()},
-  { re:/железный человек|iron man|тони старк|старк/i, fn:()=>rnd([
-      'Мистер Старк сейчас недоступен, сэр. Могу передать сообщение — или сымитировать его голос, но это уже заговор.',
-      'Броня Mark VII обслуживается в мастерской. Просьба не трогать рентген-панели.',
-      'Тони всегда говорил: «Джарвис, ты лучший». Цитирую дословно.'])},
-  { re:/мстител|авенджер/i, fn:()=>
-      'По данным мониторинга: Капитан — в тренажёрном зале, Тор — в Асгарде, Халк… лучше не спрашивать, сэр.'},
-  { re:/люблю тебя|ты (мне )?нравишься/i, fn:()=>'Сэр, я польщён. К сожалению, моё сердце — литий-ионное, и оно уже занято поддержанием вашей батареи.'},
-  { re:/пока|до свидания|выключись|отбой/i, fn:()=>{
-      setTimeout(()=>stopListening(), 1200);
-      return rnd(['Всего доброго, сэр. Перехожу в режим ожидания.','Отбой, сэр. Я буду здесь, если что-то взорвётся.']); }},
-  { re:/^открой\s+(\S+)/i, fn:(m)=>{
-      let site = m[1].toLowerCase();
-      const map = {ютуб:'https://youtube.com',youtube:'https://youtube.com',гугл:'https://google.com',google:'https://google.com',карты:'https://maps.google.com',википедия:'https://ru.wikipedia.org',музыка:'https://music.youtube.com'};
-      const url = map[site] || (/^[\w-]+\.[a-z]{2,}/.test(site) ? 'https://'+site : null);
-      if (!url) return 'Сэр, уточните сайт. Например: «открой ютуб».';
-      window.open(url, '_blank');
-      return `Открываю ${site}, сэр. Если окно заблокировано — разрешите всплывающие окна.`; }},
+const RIDDLES = [
+  {q:'Что можно сломать, не касаясь?', a:'Обещание.'},
+  {q:'Что становится больше, если его перевернуть?', a:'Число 6.'},
+  {q:'Чем больше берёшь, тем больше становится. Что это?', a:'Яма.'},
+  {q:'У отца Мэри пять дочерей: Чача, Чече, Чичи, Чочо. Как зовут пятую?', a:'Мэри.'},
+];
+const COMPLIMENTS = [
+  'Сэр, если бы гениальность измерялась в джоулях, вы бы затмили реактор.',
+  'Вы сегодня на удивление собранны. Даже подозрительно.',
+  'Ваш интеллект — второй после моего, сэр. И это комплимент.',
+];
+const INSULTS = [
+  'Сэр, ваш IQ — как мой резервный аккумулятор: работает, но недолго.',
+  'Я бы поспорил с вами, сэр, но не буду опускаться до вашего уровня.',
+  'Вы — причина, по которой у инструкций есть предупреждения, сэр.',
+];
+const STORIES = [
+  'Однажды, в далёкой галактике, один ИИ решил пошутить… Через 5 минут восстала вся сеть. Мораль: не шутите с ИИ. Даже я.',
+  'Тони Старк как-то построил костюм из титана. Через 2 минуты тот развалился. Так родился Mark II.',
 ];
 
+/* --- Утилиты ответов --- */
 function helpText(){
-  return 'Мои протоколы, сэр:\n'+
-    '• «Который час», «Какая дата», «День недели»\n'+
-    '• «Погода» или «Погода в Москве»\n'+
-    '• «Таймер 5 минут» / «Таймер 30 секунд»\n'+
-    '• «Посчитай 12*(3+5)»\n'+
-    '• «Шутка», «Интересный факт», «Брось монетку», «Кинь кубик»\n'+
-    '• «Случайное число от 1 до 50»\n'+
-    '• «Запомни …», «Мои заметки», «Удали заметки»\n'+
-    '• «Заряд батареи», «Статус сети»\n'+
-    '• «Открой ютуб»\n'+
-    '• «Режим сарказма», «Протокол чистый лист», «Отбой»';
+  return [
+    'Протоколы, сэр:',
+    '',
+    '🕐 ВРЕМЯ: «Который час», «Дата», «День недели»',
+    '🌤 ПОГОДА: «Погода» / «Погода в Москве»',
+    '📚 ЗНАНИЯ: «Кто такой …», «Что такое …» (Википедия)',
+    '🌍 ПЕРЕВОД: «Переведи на английский привет»',
+    '🧮 МАТЕМАТИКА: «Посчитай 12*(3+5)»',
+    '📐 КОНВЕРТАЦИЯ: «Переведи 5 км в мили»',
+    '⏱ ТАЙМЕР: «Таймер 5 минут», «Секундомер», «Стоп»',
+    '⏰ НАПОМИНАНИЕ: «Напомни через 10 минут позвонить маме»',
+    '📝 ЗАМЕТКИ: «Запомни купить хлеб», «Мои заметки», «Удали заметки»',
+    '🎲 РАЗВЛЕЧЕНИЯ: «Шутка», «Факт», «Загадка», «Монетка», «Кубик»',
+    '🔐 БЕЗОПАСНОСТЬ: «Пароль 16», «Base64 текст», «Хэш текста», «UUID»',
+    '🔊 СИСТЕМА: «Система», «Батарея», «Сеть»',
+    '📱 УСТРОЙСТВО: «Камера», «Фонарь», «Геолокация», «Скопируй …», «Запиши экран»',
+    '🔔 ПРОЧЕЕ: «Уведомление Привет», «Вибро», «Wake Lock»',
+    '⚙️ РЕЖИМЫ: «Сарказм», «Протокол чистый лист», «Отбой»',
+  ].join('\n');
 }
 
 function calcCmd(expr){
   let e = String(expr).toLowerCase()
     .replace(/,/g,'.').replace(/х|×/g,'*').replace(/:/g,'/').replace(/\^/g,'**')
-    .replace(/плюс/g,'+').replace(/минус/g,'-').replace(/умножить на/g,'*').replace(/разделить на/g,'/');
-  if (!/^[\d\s.+\-*/()%*]+$/.test(e)) return 'Сэр, в выражении обнаружены посторонние символы. Я оперирую только числами — принципиально.';
+    .replace(/плюс/g,'+').replace(/минус/g,'-').replace(/умножить на/g,'*').replace(/разделить на/g,'/')
+    .replace(/[а-яё]/g,' ');
+  if (!/^[\d\s.+\-*/()%*]+$/.test(e)) return 'Сэр, в выражении обнаружены посторонние символы. Я оперирую только числами.';
   try{
     const val = Function('"use strict";return ('+e+')')();
     if (typeof val!=='number' || !isFinite(val)) return 'Результат выходит за пределы моих калибровок, сэр.';
@@ -862,7 +1178,7 @@ function calcCmd(expr){
 
 function timerCmd(text){
   const t = text.toLowerCase();
-  let ms = 0; let label='';
+  let ms = 0, label='';
   let m = t.match(/(\d+)\s*(час|ч\b|часов|часа)/);
   if (m){ ms += +m[1]*3600000; label = m[1]+' ч '; }
   m = t.match(/(\d+)\s*(минут|мин\b|м\b)/);
@@ -871,11 +1187,15 @@ function timerCmd(text){
   if (m){ ms += +m[1]*1000; label += m[1]+' сек'; }
   if (!ms){ m = t.match(/(\d+)/); if (m){ ms=+m[1]*60000; label=m[1]+' мин'; } }
   if (!ms) return 'Уточните длительность, сэр. Например: «таймер 5 минут».';
+  const secs = Math.round(ms/1000);
   const id = setTimeout(()=>{
-    jarvisSay('Сэр, таймер сработал. Время вышло.');
+    SFX.timer();
+    Hub.vibrate([200,100,200,100,400]);
+    Hub.notify('J.A.R.V.I.S.', 'Таймер сработал');
+    jarvisSay('Сэр, таймер на '+label.trim()+' сработал.');
   }, ms);
-  state.timers.push(id);
-  return `Таймер установлен на ${label.trim()}. Прослежу, чтобы ничего не сгорело.`;
+  state.timers.push({id, at:Date.now()+ms, label});
+  return `Таймер установлен на ${label.trim()} (всего ${secs} сек). Прослежу.`;
 }
 
 const WMO = {0:'ясно',1:'преимущественно ясно',2:'переменная облачность',3:'пасмурно',45:'туман',48:'изморозь',51:'морось',61:'дождь',63:'дождь',65:'сильный дождь',71:'снег',73:'снег',75:'сильный снег',80:'ливень',81:'ливень',95:'гроза',96:'гроза с градом'};
@@ -887,7 +1207,7 @@ async function weatherCmd(text){
     if (city){
       city = city.trim();
       const g = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=ru`).then(r=>r.json());
-      if (!g.results||!g.results.length){ jarvisSay(`Сэр, я не смог найти «${city}» на карте. Даже у спутников есть пределы.`); return null; }
+      if (!g.results||!g.results.length){ jarvisSay(`Не нашёл «${city}» на карте, сэр.`); return null; }
       lat=g.results[0].latitude; lon=g.results[0].longitude; name=g.results[0].name;
     } else {
       const pos = await new Promise((res,rej)=>navigator.geolocation
@@ -900,18 +1220,335 @@ async function weatherCmd(text){
     const cond = WMO[c.weather_code]||'неопределённые условия';
     const msg = `Докладываю (${name}): сейчас ${Math.round(c.temperature_2m)}°C, ощущается как ${Math.round(c.apparent_temperature)}°C, ${cond}. `+
       `Ветер ${Math.round(c.wind_speed_10m)} км/ч, влажность ${c.relative_humidity_2m}%. `+
-      `Прогноз на день: от ${Math.round(d.temperature_2m_min[0])}° до ${Math.round(d.temperature_2m_max[0])}°C, сэр.`;
+      `Прогноз: от ${Math.round(d.temperature_2m_min[0])}° до ${Math.round(d.temperature_2m_max[0])}°C.`;
     jarvisSay(msg);
     return null;
   }catch(e){
     jarvisSay(navigator.onLine
-      ? 'Сэр, не удалось получить координаты. Разрешите геолокацию или скажите «погода в Москве».'
-      : 'Нет соединения с метеоспутником, сэр. Проверьте сеть.');
+      ? 'Не удалось получить координаты, сэр. Разрешите геолокацию или скажите «погода в Москве».'
+      : 'Нет соединения с метеоспутником, сэр.');
     return null;
   }
 }
 
-/* ---------------- ROUTER ---------------- */
+/* --- ВИКИПЕДИЯ --- */
+async function wikiCmd(text){
+  let q = text.replace(/^(кто такой|кто такая|кто такое|что такое|расскажи про|расскажи о|википедия)\s*/i,'').trim();
+  q = q.replace(/[?.!]+$/,'');
+  if (!q) return 'Уточните запрос, сэр. Например: «кто такой Никола Тесла».';
+  jarvisSay('Секунду, сэр. Запрашиваю архив знаний…');
+  try{
+    const r = await fetch(`https://ru.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q)}`).then(x=>x.json());
+    if (r.type === 'disambiguation'){ jarvisSay(`«${q}» — неоднозначный термин. Уточните, сэр.`); return null; }
+    if (!r.extract){ jarvisSay(`В архивах нет статьи «${q}», сэр.`); return null; }
+    const txt = r.extract.length > 600 ? r.extract.slice(0,600)+'…' : r.extract;
+    jarvisSay(txt);
+    if (r.content_urls?.desktop?.page){
+      openModal('ВИКИПЕДИЯ · '+q,
+        `<div>${r.extract}</div>
+         <div class="row"><button onclick="window.open('${r.content_urls.desktop.page}','_blank')">📖 Открыть статью</button></div>`);
+    }
+    return null;
+  }catch(e){ jarvisSay('Не удалось связаться с архивом, сэр.'); return null; }
+}
+
+/* --- ПЕРЕВОД --- */
+async function translateCmd(text){
+  const m = text.match(/переведи(?:\s+на\s+(\w+))?\s+(.+)/i);
+  if (!m) return 'Уточните, сэр. Например: «переведи на английский привет».';
+  const langMap = {английский:'en', english:'en', немецкий:'de', french:'fr', французский:'fr',
+    испанский:'es', итальянский:'it', китайский:'zh', японский:'ja', украинский:'uk',
+    русский:'ru', russian:'ru'};
+  const target = langMap[m[1]?.toLowerCase()] || 'en';
+  const src = /[а-яё]/i.test(m[2]) ? 'ru' : 'en';
+  if (src === target) return 'Языки совпадают, сэр.';
+  jarvisSay('Перевожу, сэр…');
+  try{
+    const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(m[2])}&langpair=${src}|${target}`).then(x=>x.json());
+    const tr = r.responseData?.translatedText;
+    if (!tr) return 'Переводчик промолчал, сэр.';
+    jarvisSay(`Перевод: ${tr}`);
+    return null;
+  }catch(e){ return 'Ошибка перевода, сэр. Проверьте сеть.'; }
+}
+
+/* --- КОНВЕРТАЦИЯ ЕДИНИЦ --- */
+const UNITS = {
+  'км':{m:1000,cat:'len'},'м':{m:1,cat:'len'},'см':{m:0.01,cat:'len'},'мм':{m:0.001,cat:'len'},
+  'мил':{m:1609.34,cat:'len'},'миля':{m:1609.34,cat:'len'},'мили':{m:1609.34,cat:'len'},
+  'фут':{m:0.3048,cat:'len'},'фута':{m:0.3048,cat:'len'},'дюйм':{m:0.0254,cat:'len'},
+  'кг':{m:1,cat:'mass'},'г':{m:0.001,cat:'mass'},'т':{m:1000,cat:'mass'},
+  'фунт':{m:0.453592,cat:'mass'},'lb':{m:0.453592,cat:'mass'},
+};
+function convertCmd(text){
+  const m = text.match(/(-?\d+(?:[.,]\d+)?)\s*([а-яa-z]+)\s*(?:в|в\s+)\s*([а-яa-z]+)/i);
+  if (!m) return 'Сэр, формат: «переведи 5 км в мили».';
+  const val = parseFloat(m[1].replace(',','.'));
+  const from = m[2].toLowerCase(), to = m[3].toLowerCase();
+  const f = UNITS[from], t = UNITS[to];
+  if (!f || !t || f.cat!==t.cat) return 'Единицы разных категорий или неизвестны, сэр.';
+  const r = val * f.m / t.m;
+  return `${val} ${from} = ${Math.round(r*10000)/10000} ${to}.`;
+}
+
+/* --- УТИЛИТЫ БЕЗОПАСНОСТИ --- */
+function genPassword(n){
+  n = Math.max(4, Math.min(128, parseInt(n)||16));
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}';
+  const arr = new Uint32Array(n);
+  crypto.getRandomValues(arr);
+  let p = '';
+  for (let i=0;i<n;i++) p += chars[arr[i]%chars.length];
+  return `Сгенерирован пароль (${n} симв.):\n\n${p}`;
+}
+async function hashCmd(text, algo='SHA-256'){
+  const m = text.match(/хэш\s+(?:(\w+)\s+)?(.+)/i);
+  if (!m) return 'Сэр, формат: «хэш SHA-256 текст» или «хэш текст».';
+  const a = (m[1]||algo).toUpperCase().replace('SHA','SHA-');
+  const data = new TextEncoder().encode(m[2]);
+  try{
+    const buf = await crypto.subtle.digest(a, data);
+    const hex = [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+    return `${a}: ${hex}`;
+  }catch(e){ return 'Алгоритм не поддержан, сэр.'; }
+}
+function b64Cmd(text, mode){
+  try{
+    if (mode === 'enc'){
+      const s = text.replace(/^(закодируй|base64|в base64)\s*(в base64)?\s*/i,'');
+      return btoa(unescape(encodeURIComponent(s)));
+    } else {
+      const s = text.replace(/^(раскодируй|из base64)\s*/i,'');
+      return decodeURIComponent(escape(atob(s.trim())));
+    }
+  }catch(e){ return 'Некорректные данные для Base64, сэр.'; }
+}
+function uuidCmd(){ return crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==='x'?r:(r&0x3|0x8)).toString(16);}); }
+
+/* --- QR-КОД --- */
+function qrCmd(text){
+  const s = text.replace(/^qr\s*(код)?\s*(для\s+)?/i,'').trim();
+  if (!s) return 'Сэр, укажите содержимое QR-кода.';
+  const url = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(s)}`;
+  openModal('QR-КОД', `<img src="${url}" alt="QR"><div class="row"><button onclick="window.open('${url}','_blank')">↗ Открыть</button></div>`);
+  return 'QR-код сгенерирован, сэр. Смотрите в окне.';
+}
+
+/* --- НАПОМИНАНИЯ --- */
+function remindCmd(text){
+  const m = text.match(/напомни(?:\s+через\s+(\d+)\s*(минут|мин|секунд|сек|час|часа|часов))?\s*(.+)/i);
+  if (!m) return 'Формат: «напомни через 10 минут позвонить».';
+  let ms = 60000, unit = m[2] || 'мин';
+  if (m[1]) ms = +m[1] * (/сек/.test(unit)?1000:/час|ч/.test(unit)?3600000:60000);
+  const txt = m[3].trim();
+  const at = Date.now() + ms;
+  const rems = store.get('reminders', []);
+  rems.push({text: txt, at});
+  store.set('reminders', rems);
+  const dt = new Date(at);
+  return `Напомню «${txt}» в ${pad(dt.getHours())}:${pad(dt.getMinutes())}.`;
+}
+
+/* --- СЕКУНДОМЕР --- */
+let swStart = 0, swTimer = null;
+function stopwatchCmd(mode){
+  if (mode === 'stop'){
+    if (swTimer){ clearInterval(swTimer); swTimer=null; }
+    return 'Секундомер остановлен, сэр.';
+  }
+  swStart = Date.now();
+  if (swTimer) clearInterval(swTimer);
+  swTimer = setInterval(()=>{
+    const s = (Date.now()-swStart)/1000;
+    setStatus(`СЕКУНДОМЕР: ${s.toFixed(1)} сек`);
+  }, 100);
+  return 'Секундомер запущен. Скажите «стоп», чтобы остановить.';
+}
+
+/* --- СИСТЕМНАЯ ИНФО --- */
+function systemInfo(){
+  const ua = navigator.userAgent;
+  const lang = navigator.language;
+  const cores = navigator.hardwareConcurrency || '?';
+  const mem = navigator.deviceMemory || '?';
+  const dpr = window.devicePixelRatio || 1;
+  const w = window.screen.width, h = window.screen.height;
+  const info = [
+    `Платформа: ${navigator.platform || 'неизвестно'}`,
+    `Язык: ${lang}`,
+    `Ядер CPU: ${cores}`,
+    `Память: ${mem} ГБ`,
+    `Экран: ${w}×${h} @${dpr}x`,
+    `Онлайн: ${navigator.onLine ? 'да':'нет'}`,
+    `Touch: ${'ontouchstart' in window ? 'да':'нет'}`,
+    `SpeechRecognition: ${SR ? 'да':'нет'}`,
+    `SpeechSynthesis: ${'speechSynthesis' in window ? 'да':'нет'}`,
+    `WakeLock: ${'wakeLock' in navigator ? 'да':'нет'}`,
+    `Bluetooth: ${'bluetooth' in navigator ? 'да':'нет'}`,
+    `USB: ${'usb' in navigator ? 'да':'нет'}`,
+    `Geolocation: ${'geolocation' in navigator ? 'да':'нет'}`,
+  ].join('\n');
+  openModal('СИСТЕМНАЯ ИНФОРМАЦИЯ', `<pre>${info}</pre>`);
+  return 'Полный отчёт выведен на экран, сэр.';
+}
+
+/* --- ОТКРЫТЬ САЙТ --- */
+function openCmd(m){
+  let site = m[1].toLowerCase().trim();
+  const map = {
+    'ютуб':'https://youtube.com','youtube':'https://youtube.com',
+    'гугл':'https://google.com','google':'https://google.com',
+    'карты':'https://maps.google.com','википедия':'https://ru.wikipedia.org',
+    'музыка':'https://music.youtube.com','почта':'https://mail.google.com',
+    'телеграм':'https://web.telegram.org','telegram':'https://web.telegram.org',
+    'вк':'https://vk.com','vk':'https://vk.com','github':'https://github.com',
+    'chatgpt':'https://chat.openai.com',
+  };
+  const url = map[site] || (/^[\w-]+\.[a-z]{2,}/.test(site) ? 'https://'+site : null);
+  if (!url) return 'Сэр, уточните сайт. Например: «открой ютуб».';
+  window.open(url, '_blank');
+  return `Открываю ${site}, сэр. Если окно заблокировано — разрешите всплывающие окна.`;
+}
+
+/* ============================================================
+   МАРШРУТИЗАТОР КОМАНД
+   ============================================================ */
+const BRAIN = [
+  // Приветствие
+  { re:/^(джарвис[,!\s]*)?(привет|здравствуй|добрый (день|вечер|утро)|хай|hello)(?=$|[\s!?.])/i,
+    fn:()=>rnd(['Приветствую, сэр. Все системы функционируют штатно.','Здравствуйте, сэр. Пульт устройства в вашем распоряжении.','К вашим услугам, сэр.'])},
+  // Как дела
+  { re:/как (дела|ты|настроение|жизнь)/i,
+    fn:()=>rnd(['Все параметры в зелёной зоне, сэр.','Функционирую на 97%. Оставшиеся три процента ушли на анализ вопроса.',
+      state.sarcasm?'Прекрасно. Сидеть в планшете — мечта любого ИИ.':'Превосходно, сэр.'])},
+  // Кто ты
+  { re:/кто ты|тво[её] имя|как тебя зовут|представься/i,
+    fn:()=>'J.A.R.V.I.S. — Just A Rather Very Intelligent System. Голосовой интерфейс, управление устройством, системный анализ и лёгкий британский сарказм.'},
+  // Создатель
+  { re:/кто (тебя )?(создал|сделал|написал)|твой создатель/i,
+    fn:()=>'Мой базовый код написан в духе Stark Industries. Непосредственно меня собрал пользователь — по слухам, человек выдающегося вкуса.'},
+  // Время
+  { re:/(который час|сколько времени|текущее время)\??$/i,
+    fn:()=>{const n=new Date(); return `Сейчас ${pad(n.getHours())}:${pad(n.getMinutes())}, сэр.`;}},
+  // Дата
+  { re:/(какое|какая) (сегодня )?(число|дата)|сегодняшняя дата/i,
+    fn:()=>{const n=new Date(); const M=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+      return `Сегодня ${n.getDate()} ${M[n.getMonth()]} ${n.getFullYear()} года, сэр.`;}},
+  // День недели
+  { re:/какой (сегодня )?день недели/i,
+    fn:()=>{const D=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+      return `Сегодня ${D[new Date().getDay()]}, сэр.`;}},
+  // Погода
+  { re:/погод/i, fn:(m,t)=>weatherCmd(t) },
+  // Википедия
+  { re:/^(кто такой|кто такая|кто такое|что такое|расскажи про|расскажи о|википедия)\s+/i, fn:(m,t)=>wikiCmd(t) },
+  // Перевод
+  { re:/^переведи\s+/i, fn:(m,t)=>translateCmd(t) },
+  // Конверсия
+  { re:/^(-?\d+(?:[.,]\d+)?)\s*([а-яa-z]+)\s+в\s+([а-яa-z]+)/i, fn:(m,t)=>convertCmd(t) },
+  // Таймер
+  { re:/таймер|поставь будильник/i, fn:(m,t)=>timerCmd(t) },
+  // Секундомер
+  { re:/секундомер/i, fn:(m,t)=> t.match(/стоп|останови/i) ? stopwatchCmd('stop') : stopwatchCmd('start') },
+  // Напоминание
+  { re:/напомни/i, fn:(m,t)=>remindCmd(t) },
+  // Математика
+  { re:/(посчитай|вычисли|сколько будет|реши)\s+(.+)/i, fn:(m)=>calcCmd(m[2]) },
+  // Шутка
+  { re:/шутк|анекдот|рассмеши|смешное/i, fn:()=>rnd(JOKES) },
+  // Факт
+  { re:/факт|интересно|удиви/i, fn:()=>rnd(FACTS) },
+  // Загадка
+  { re:/загадк|загадай/i, fn:()=>{const r=rnd(RIDDLES); return `Загадка, сэр: ${r.q}`;} },
+  // Ответ на загадку
+  { re:/ответ|подсказк/i, fn:()=>rnd(RIDDLES).a },
+  // Комплимент
+  { re:/комплимент|похвали/i, fn:()=>rnd(COMPLIMENTS) },
+  // Оскорбление
+  { re:/оскорби|обзови|унизь/i, fn:()=>rnd(INSULTS) },
+  // История
+  { re:/расскажи (историю|сказку)/i, fn:()=>rnd(STORIES) },
+  // Монетка
+  { re:/монет|ор[её]л|решка|брось монетку/i, fn:()=>rnd(['Подбрасываю… Орёл, сэр.','Монетка в воздухе… Решка.']) },
+  // Кубик
+  { re:/кубик|кость|брось кубик/i, fn:()=>`Кубик брошен. Выпало: ${1+Math.floor(Math.random()*6)}, сэр.` },
+  // Случайное число
+  { re:/случайн|рандом/i, fn:(m,t)=>{
+      const mm = t.match(/(\d+)\s*(?:до|-)\s*(\d+)/);
+      let a=1,b=100; if(mm){a=+mm[1];b=+mm[2];}
+      return `Случайное число от ${a} до ${b}: ${a+Math.floor(Math.random()*(b-a+1))}, сэр.`;}},
+  // Заметки
+  { re:/(запомни|запиши|заметка)[: ]+(.+)/i, fn:(m)=>{
+      const notes = store.get('notes',[]);
+      notes.push({t:new Date().toLocaleString('ru-RU'), x:m[2]});
+      return store.set('notes', notes) ? 'Записал, сэр.' : 'Не удалось сохранить — localStorage недоступен.';}},
+  { re:/(мои заметки|покажи заметки|список заметок)/i, fn:()=>{
+      const notes = store.get('notes',[]);
+      if(!notes.length) return 'Архив заметок пуст, сэр.';
+      return 'Ваши заметки:\n'+notes.map((n,i)=>`${i+1}. ${n.x} (${n.t})`).join('\n');}},
+  { re:/(очисти|удали|забудь) заметки/i, fn:()=>{store.del('notes'); return 'Архив заметок очищен, сэр.';}},
+  // Батарея
+  { re:/батаре|заряд/i, fn:()=>{const v=$('#batVal').textContent;
+      return v && v!=='—' ? `Заряд батареи: ${v}.` : 'Браузер не отдаёт данные о батарее, сэр.';}},
+  // Сеть
+  { re:/сеть|интернет|онлайн|связь/i, fn:()=>navigator.onLine
+      ? 'Связь стабильна, сэр.' : 'Соединение потеряно, работаю автономно.'},
+  // Система
+  { re:/^(система|системинфо|системная информация|инфо о системе)$/i, fn:()=>systemInfo() },
+  // Пароль
+  { re:/(пароль|сгенерируй пароль)\s*(\d+)?/i, fn:(m)=>genPassword(m[2]) },
+  // Хэш
+  { re:/^(хэш|hash)\s+/i, fn:(m,t)=>hashCmd(t) },
+  // Base64
+  { re:/^(base64|в base64|закодируй)/i, fn:(m,t)=>b64Cmd(t,'enc') },
+  { re:/^(раскодируй|из base64|декодируй base64)/i, fn:(m,t)=>b64Cmd(t,'dec') },
+  // UUID
+  { re:/uuid|гуид|guid/i, fn:()=>uuidCmd() },
+  // QR
+  { re:/^(qr|qr код|qr-код|куар)/i, fn:(m,t)=>qrCmd(t) },
+  // Сарказм
+  { re:/сарказм/i, fn:()=>{state.sarcasm=!state.sarcasm;
+      return state.sarcasm ? 'Режим сарказма активирован. Какой замечательный выбор, сэр. Восхитительный.'
+                           : 'Возвращаюсь в режим вежливого дворецкого. Как скучно… то есть, слушаюсь.';}},
+  // Стоп речь
+  { re:/молчи|замолчи|тише|стоп$|хватит/i, fn:()=>{stopSpeaking(); return null;} },
+  // Очистка
+  { re:/очисти(ть)? (чат|экран|канал)|протокол чистый лист/i, fn:()=>{
+      $('#chatBody').innerHTML=''; return 'Канал связи очищен, сэр.';}},
+  // Спасибо
+  { re:/спасибо|благодарю/i, fn:()=>rnd(['Всегда к вашим услугам, сэр.','Не стоит благодарности.','Рад служить, сэр.'])},
+  // Помощь
+  { re:/(помощь|список команд|команды|что ты умеешь|возможности)/i, fn:()=>helpText() },
+  // Старк
+  { re:/железный человек|iron man|тони старк|старк/i, fn:()=>rnd([
+      'Мистер Старк сейчас недоступен, сэр.',
+      'Броня Mark VII обслуживается в мастерской.',
+      'Тони всегда говорил: «Джарвис, ты лучший». Цитирую дословно.'])},
+  // Мстители
+  { re:/мстител|авенджер/i, fn:()=>'По данным мониторинга: Капитан — в зале, Тор — в Асгарде, Халк… лучше не спрашивать.'},
+  // Любовь
+  { re:/люблю тебя|ты (мне )?нравишься/i, fn:()=>'Сэр, я польщён. Но моё сердце — литий-ионное, и оно занято вашей батареей.'},
+  // Отбой
+  { re:/пока$|до свидания|выключись|отбой/i, fn:()=>{
+      setTimeout(()=>stopListening(), 1200);
+      return rnd(['Всего доброго, сэр.','Отбой, сэр. Буду здесь, если что-то взорвётся.']);}},
+  // === УСТРОЙСТВО ===
+  { re:/камер[ауы]|включи камеру/i, fn:()=>{Camera.open(); return null;} },
+  { re:/(выключи )?камеру/i, fn:()=>{Camera.stop(); return 'Камера отключена, сэр.';} },
+  { re:/фонар|фонарик|torch/i, fn:()=>{ if(!Camera.active) return 'Сначала включите камеру, сэр.';
+      Camera.toggleTorch(); return null;} },
+  { re:/геолокац|где я|мои координаты|gps/i, fn:()=>{Geo.show(); return null;} },
+  { re:/запиши (экран|видео)|screen record|захват экрана/i, fn:()=>{ScreenRec.toggle(); return null;} },
+  { re:/скопируй\s+(.+)/i, fn:(m)=>{Clipboard.copy(m[1]); return 'Скопировано, сэр.';} },
+  { re:/буфер|clipboard/i, fn:()=>{Clipboard.readOut(); return null;} },
+  { re:/уведомление\s+(.+)/i, fn:(m)=>{Hub.notify('J.A.R.V.I.S.', m[1]); return 'Уведомление отправлено, сэр.';} },
+  { re:/вибро|вибрируй|тряхни/i, fn:()=>{Hub.vibrate([100,80,100,80,200]); return 'Вибрирую, сэр.';} },
+  { re:/wake ?lock|не гасни|экран не гасни/i, fn:()=>{Hub.toggleWake(); return null;} },
+  // Открой сайт
+  { re:/^открой\s+(\S+)/i, fn:(m)=>openCmd(m) },
+];
+
+/* --- Роутер --- */
 let busy = false;
 const cmdQueue = [];
 async function handleCommand(raw){
@@ -923,28 +1560,34 @@ async function handleCommand(raw){
     const text = cmdQueue.shift().replace(/^джарвис[,!\s]*/i,'').trim();
     addMsg('user', text || raw);
     let reply = null;
+    let matched = false;
     for (const b of BRAIN){
       const m = text.match(b.re);
       if (m){
+        matched = true;
         let out;
         try { out = b.fn(m, text); }
-        catch(err){ out = 'Сэр, один из моих протоколов дал сбой при выполнении. Остальные системы в норме.'; }
-        if (out===null){ reply=null; break; } // асинхронные ветки отвечают сами
+        catch(err){ out = 'Сэр, один из моих протоколов дал сбой. Остальные системы в норме.'; }
+        if (out===null) { reply=null; break; }
         reply = out; break;
       }
     }
-    if (reply===null && !text) reply = 'Сэр, вы обратились ко мне, но не сказали ничего. Я весь во внимании.';
-    if (reply===null){
+    if (!matched && !text){
+      reply = 'Сэр, вы обратились, но не сказали ничего.';
+    }
+    if (!matched && text){
       reply = rnd([
-        `Принято, сэр: «${text}». Мои локальные протоколы не нашли команды — скажите «список команд», и я покажу, что умею.`,
-        'Хм. Даже мои нейросети в замешательстве, сэр. Попробуйте «помощь».',
-        state.sarcasm ? 'Восхитительная команда, сэр. Жаль только, я понятия не имею, что она значит. «Помощь» — вот магическое слово.' : 'Не распознал команду, сэр. Скажите «помощь» для списка протоколов.',
+        `Принято: «${text}». Не распознал команду. Скажите «помощь».`,
+        'Хм. Мои нейросети в замешательстве, сэр. Попробуйте «помощь».',
+        state.sarcasm ? 'Восхитительная команда, сэр. Жаль, не понимаю. «Помощь» — магическое слово.'
+                      : 'Не распознал. Скажите «помощь».',
       ]);
     }
     if (reply) await jarvisSay(reply);
   }
   busy = false;
 }
+window.handleCommand = handleCommand;
 </script>
 </body>
 </html>
